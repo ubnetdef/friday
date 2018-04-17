@@ -1,0 +1,9 @@
+certifi==2018.4.16
+chardet==3.0.4
+idna==2.6
+-e git+https://github.com/attzonko/mattermost_bot@caff68b55aaf1f4b49913934e8928e8cae159c2a#egg=mattermost_bot
+pyvmomi==6.5.0.2017.5.post1
+requests==2.18.4
+six==1.11.0
+urllib3==1.22
+websocket-client==0.47.0

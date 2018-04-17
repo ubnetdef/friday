@@ -1,0 +1,12 @@
+# Python
+__pycache__
+*.pyc
+
+# venv
+venv/
+
+# Settings
+friday/settings.py
+
+# Data files
+data/
