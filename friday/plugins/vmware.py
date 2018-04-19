@@ -13,10 +13,9 @@ def on_init():
 def vmsearch(message, path):
 	api = VMwareAPI()
 	res = api.search(path)
-	api.disconnect()
 
 	# Iterate things inside the folder
-	output = ['Found {} results'.format(len(res))]
+	output = []
 	if type(res) is None:
 		output.append("No results found.")
 	elif type(res) is vim.Folder:
@@ -28,12 +27,16 @@ def vmsearch(message, path):
 				extra = ""
 			else:
 				itemtype = "VM"
-				extra = " (Online)" if item.summary.runtime.powerState else " (Offline)"
+				extra = " Online" if item.summary.runtime.powerState else " Offline"
+				extra = "- {} - {}".format(item.config.uuid, extra)
 
 			output.append("* {}: {}{}".format(itemtype, item.name, extra))
 	else:
-		extra = " (Online)" if res.summary.runtime.powerState else " (Offline)"
-		output.append("* VM: {}".format(res.name, extra))
+		extra = "Online" if res.summary.runtime.powerState else "Offline"
+		output.append("* VM: {} - {} - {}".format(res.name, res.config.uuid, extra))
+
+	output.insert(0, 'Found {} results'.format(len(output)))
+	api.disconnect()
 
 	message.reply('\n'.join(output))
 
